@@ -4,9 +4,12 @@ import java.util.Scanner;
 public class CosCumparaturi {
     public static void main(String[] args) {
         List<String> cos = new ArrayList<>();
-        String st;
+        String st, st1, st2, sAfis;
+        int nCit, nAfis;
         boolean b;
+
         faCos(cos);
+
         int n = 0;
         while (n!=-1) {
             n = meniu();
@@ -15,51 +18,58 @@ public class CosCumparaturi {
                     afiseazaCos(cos);
                     break;
                 case 2:
-                    System.out.print("Produsul cautat: ");
-                    st = new Scanner(System.in).nextLine();
+                    nCit = 1;
+                    st = citesteProd(nCit);
                     b = cautaProdus(cos,st);
-                    System.out.println(b ? "Produsul este in cos!" : "Produsul nu este in cos!");
+                    sAfis = "gasit";
+                    afiseazaMesaj(b, sAfis);
                     break;
                 case 3:
-                    System.out.print("Introduceti produsul pe care doriti sa il stergeti: ");
-                    st = new Scanner(System.in).nextLine();
+                    nCit = 2;
+                    st = citesteProd(nCit);
                     b = stergeProdus(cos, st);
-                    System.out.println(b ? "Produsul a fost sters din cos!" : "Produsul nu a fost gasit in cos!");
+                    sAfis = "sters";
+                    afiseazaMesaj(b, sAfis);
                     break;
                 case 4:
-                    System.out.print("Produsul pe care doriti sa il modificati: ");
-                    String st1 = new Scanner(System.in).nextLine();
+                    nCit = 3;
+                    st1 = citesteProd(nCit);
                     if (!cautaProdus(cos, st1)) {
-                        System.out.println("Produsul nu a fost gasit in cos!");
+                        nAfis = 1;
+                        afiseazaMesaj(nAfis);
                     }
                     else {
-                        System.out.print("Introduceti noul produs: ");
-                        String st2 = new Scanner(System.in).nextLine();
+                        nCit = 4;
+                        st2 = citesteProd(nCit);
                         modificaProdus(cos, st1, st2);
-                        System.out.println("Produsul a fost modificat!");
+                        nAfis = 2;
+                        afiseazaMesaj(nAfis);
                     }
                     break;
                 case 5:
-                    System.out.print("Produsul pe care doriti sa il adaugati in cos: ");
-                    st = new Scanner(System.in).nextLine();
+                    nCit = 5;
+                    st = citesteProd(nCit);
                     if (!st.equals("")) {
                         if (cautaProdus(cos, st)) {
-                            System.out.println("Produsul mai exista deja, nu poate fi adaugat!");
+                            nAfis = 3;
+                            afiseazaMesaj(nAfis);
                         }
                         else {
                             adaugaProdus(cos,st);
-                            System.out.println("Produsul a fost adaugat in cos!");
+                            nAfis = 4;
+                            afiseazaMesaj(nAfis);
                         }
                     }
                     else {
-                        System.out.println("Nu ati introdus nimic!");
+                        nAfis = 5;
+                        afiseazaMesaj(nAfis);
                     }
                     break;
                 case -1:
                     break;
                 default :
-                    System.out.println("Ati introdus gresit!");
-
+                    nAfis = 6;
+                    afiseazaMesaj(nAfis);
             }
         }
 
@@ -114,4 +124,54 @@ public class CosCumparaturi {
     public static void adaugaProdus(List cos, String st) {
             cos.add(st);
     }
+
+    public static String citesteProd(int opt) {
+        switch (opt) {
+            case 1:
+                System.out.print("Produsul pe care doriti sa il cautati: ");
+                break;
+            case 2:
+                System.out.print("Produsul pe care doriti sa il stergeti: ");
+                break;
+            case 3:
+                System.out.print("Produsul pe care doriti sa il modificati: ");
+                break;
+            case 4:
+                System.out.print("Introduceti noul produs: ");
+                break;
+            case 5:
+                System.out.print("Produsul pe care doriti sa il adaugati: ");
+                break;
+        }
+        String sCitit = new Scanner(System.in).nextLine();
+        return sCitit;
+    }
+
+    public static void afiseazaMesaj(boolean b, String s) {
+            System.out.println(b? "Produsul a fost " + s + "!": "Produsul nu a fost gasit!");
+    }
+
+    public static void afiseazaMesaj (int n) {
+        switch (n) {
+            case 1:
+                System.out.println("Produsul nu a fost gasit!");
+                break;
+            case 2:
+                System.out.println("Produsul a fost modificat!");
+                break;
+            case 3:
+                System.out.println("Produsul exista deja, nu mai poate fi adaugat!");
+                break;
+            case 4:
+                System.out.println("Produsul a fost adaugat!");
+                break;
+            case 5:
+                System.out.println("Nu ati introdus nimic!");
+                break;
+            case 6:
+                System.out.println("Ati introdus gresit optiunea!");
+                break;
+        }
+    }
 }
+
