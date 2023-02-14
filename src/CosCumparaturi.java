@@ -73,7 +73,6 @@ public class CosCumparaturi {
             }
         }
 
-
     }
     public static int meniu() {
         System.out.println("Alegeti:");
@@ -83,8 +82,14 @@ public class CosCumparaturi {
         System.out.println(" 4 - pentru modificare produs");
         System.out.println(" 5 - pentru adaugare produs");
         System.out.println("-1 - pentru iesire");
-        int nr = new Scanner(System.in).nextInt();
-        return nr;
+        int nr = 0;
+        try {
+            nr = new Scanner(System.in).nextInt();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            return nr;
+        }
     }
 
     public static void faCos(List cos) {
